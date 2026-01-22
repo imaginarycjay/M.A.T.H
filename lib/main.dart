@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'app.dart';
-import 'data/data_seeder.dart';
+import 'data/learning_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize and seed database on first run
-  final seeder = DataSeeder();
-  await seeder.seedFromMockData();
-  await seeder.seedDefaultSettings();
+  // Initialize the learning database
+  await LearningDatabase.instance.database;
 
-  runApp(const TutoringHubApp());
+  runApp(const LearnMathApp());
 }

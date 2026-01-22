@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
-import 'screens/home_screen.dart';
+import 'screens/learning_path_screen.dart';
 
-class TutoringHubApp extends StatelessWidget {
-  const TutoringHubApp({super.key});
+class LearnMathApp extends StatelessWidget {
+  const LearnMathApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'TutorHub',
+      title: 'M.A.T.H',
       theme: AppTheme.theme,
-      home: const HomeScreen(),
+      home: const LearningPathScreen(),
     );
   }
 }
