@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'database.dart';
 import 'mock_modules.dart';
 
@@ -8,11 +9,11 @@ class DataSeeder {
   Future<void> seedFromMockData() async {
     final isSeeded = await _db.isSeeded();
     if (isSeeded) {
-      print('Database already seeded, skipping...');
+      debugPrint('Database already seeded, skipping...');
       return;
     }
 
-    print('Seeding database with mock data...');
+    debugPrint('Seeding database with mock data...');
 
     final modulesData = <Map<String, dynamic>>[];
 
@@ -54,7 +55,7 @@ class DataSeeder {
     }
 
     await _db.seedData(modulesData);
-    print('Database seeded successfully!');
+    debugPrint('Database seeded successfully!');
   }
 
   // Initialize default user settings

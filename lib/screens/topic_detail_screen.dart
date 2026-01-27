@@ -104,8 +104,8 @@ class _QuizLevelBtn extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: color.alpha * 0.001 + 0.1),
-          border: Border.all(color: color.withValues(alpha: color.alpha * 0.001 + 0.3)),
+          color: color.withValues(alpha: 0.1),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(

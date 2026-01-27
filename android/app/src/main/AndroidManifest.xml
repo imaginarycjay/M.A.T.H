@@ -1,8 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.christian.perez.knhs_math_learning_app"
+    tools:ignore="MissingVersion">
+
     <application
-        android:label="knhs_math_learning_app"
+        android:label="M.A.T.H"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,AllowBackup,MissingApplicationIcon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -11,7 +16,8 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="UnusedAttribute,LockedOrientationActivity">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -39,7 +45,7 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
+            <data android:mimeType="text/plain" tools:ignore="UnusedAttribute"/>
         </intent>
     </queries>
 </manifest>

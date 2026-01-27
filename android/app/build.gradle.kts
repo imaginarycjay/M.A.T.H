@@ -1,5 +1,3 @@
-import com.android.build.gradle.api.ApkVariantOutput
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -13,12 +11,12 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
@@ -37,14 +35,6 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
-        }
-    }
-
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            if (output is ApkVariantOutput) {
-                output.outputFileName = "M.A.T.H-${variant.name}.apk"
-            }
         }
     }
 }
