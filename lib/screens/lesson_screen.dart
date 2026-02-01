@@ -140,8 +140,8 @@ class _LessonScreenState extends State<LessonScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: lines.map((line) {
-        if (line.startsWith('**') && line.endsWith('**')) {
-          // Bold header
+        if (line.startsWith('**') && line.endsWith('**') && line.indexOf('**', 2) == line.length - 2) {
+          // Bold header (full line bold)
           return Padding(
             padding: const EdgeInsets.only(top: 12, bottom: 8),
             child: Text(
@@ -153,7 +153,7 @@ class _LessonScreenState extends State<LessonScreen> {
             ),
           );
         } else if (line.startsWith('• ')) {
-          // Bullet point
+          // Bullet point with potential inline formatting
           return Padding(
             padding: const EdgeInsets.only(left: 8, bottom: 6),
             child: Row(
@@ -161,10 +161,7 @@ class _LessonScreenState extends State<LessonScreen> {
               children: [
                 const Text('• ', style: TextStyle(fontSize: 14)),
                 Expanded(
-                  child: Text(
-                    line.substring(2),
-                    style: const TextStyle(fontSize: 14, height: 1.5),
-                  ),
+                  child: _buildRichText(line.substring(2)),
                 ),
               ],
             ),
@@ -172,15 +169,76 @@ class _LessonScreenState extends State<LessonScreen> {
         } else if (line.isEmpty) {
           return const SizedBox(height: 8);
         } else {
+          // Regular text with potential inline formatting
           return Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: Text(
-              line,
-              style: const TextStyle(fontSize: 14, height: 1.6),
-            ),
+            child: _buildRichText(line),
           );
         }
       }).toList(),
+    );
+  }
+
+  Widget _buildRichText(String text, {bool isActive = true}) {
+    List<TextSpan> spans = [];
+    RegExp boldRegex = RegExp(r'\*\*(.*?)\*\*');
+    int lastEnd = 0;
+
+    final baseColor = isActive ? AppTheme.text : AppTheme.muted;
+
+    for (Match match in boldRegex.allMatches(text)) {
+      // Add text before bold part
+      if (match.start > lastEnd) {
+        spans.add(TextSpan(
+          text: text.substring(lastEnd, match.start),
+          style: TextStyle(
+            fontSize: 14,
+            height: 1.6,
+            color: baseColor,
+          ),
+        ));
+      }
+
+      // Add bold text
+      spans.add(TextSpan(
+        text: match.group(1),
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.6,
+          fontWeight: FontWeight.bold,
+          color: baseColor,
+        ),
+      ));
+
+      lastEnd = match.end;
+    }
+
+    // Add remaining text
+    if (lastEnd < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(lastEnd),
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.6,
+          color: baseColor,
+        ),
+      ));
+    }
+
+    // If no bold formatting found, return simple text
+    if (spans.isEmpty) {
+      return Text(
+        text,
+        style: TextStyle(
+          fontSize: 14,
+          height: 1.6,
+          color: baseColor,
+        ),
+      );
+    }
+
+    return RichText(
+      text: TextSpan(children: spans),
     );
   }
 
@@ -243,15 +301,7 @@ class _LessonScreenState extends State<LessonScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        step,
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.5,
-                          color: isActive ? AppTheme.text : AppTheme.muted,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      child: _buildRichText(step, isActive: isActive),
                     ),
                   ],
                 ),
@@ -302,14 +352,7 @@ class _LessonScreenState extends State<LessonScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            widget.node.example!,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.5,
-              fontFamily: 'monospace',
-            ),
-          ),
+          _buildRichText(widget.node.example!),
         ],
       ),
     );

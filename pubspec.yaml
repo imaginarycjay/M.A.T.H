@@ -64,7 +64,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/logo.jpeg
     - assets/logo2.png
+    - assets/logo_converted.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -96,21 +98,21 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: false
-  image_path: "assets/logo2.png"
+  image_path: "assets/logo_converted.png"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/logo2.png"
+  adaptive_icon_foreground: "assets/logo_converted.png"
 
 # Flutter Native Splash Configuration
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/logo2.png
-  color_dark: "#FFFFFF"
-  image_dark: assets/logo2.png
+  image: assets/logo_converted.png
+  color_dark: "#18181B"
+  image_dark: assets/logo_converted.png
   android_12:
-    image: assets/logo2.png
+    image: assets/logo_converted.png
     color: "#FFFFFF"
-    image_dark: assets/logo2.png
-    color_dark: "#FFFFFF"
+    image_dark: assets/logo_converted.png
+    color_dark: "#18181B"
   android: true
   ios: false
 

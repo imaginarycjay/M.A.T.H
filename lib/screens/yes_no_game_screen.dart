@@ -31,8 +31,8 @@ class _YesNoGameScreenState extends State<YesNoGameScreen> {
       }
     });
 
-    // Wait a moment to show feedback
-    await Future.delayed(const Duration(milliseconds: 1200));
+    // Wait a moment to show feedback and explanation
+    await Future.delayed(const Duration(milliseconds: 2500));
 
     if (_currentIndex < questions.length - 1) {
       setState(() {
@@ -210,6 +210,35 @@ class _YesNoGameScreenState extends State<YesNoGameScreen> {
                           ],
                         ),
                       ),
+                      // Show explanation if available
+                      if (question.explanation != null) ...[
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isCorrect
+                                ? const Color(0xFFF0FDF4)
+                                : const Color(0xFFFEF2F2),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: isCorrect
+                                  ? const Color(0xFF10B981).withAlpha(51)
+                                  : const Color(0xFFEF4444).withAlpha(51),
+                            ),
+                          ),
+                          child: Text(
+                            question.explanation!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: isCorrect
+                                  ? const Color(0xFF047857)
+                                  : const Color(0xFFB91C1C),
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ],
                 ),

@@ -47,20 +47,24 @@ class GameQuestion {
 class YesNoQuestion {
   final String text;
   final bool answer;
+  final String? explanation;
 
   const YesNoQuestion({
     required this.text,
     required this.answer,
+    this.explanation,
   });
 
   Map<String, dynamic> toJson() => {
     'text': text,
     'answer': answer,
+    'explanation': explanation,
   };
 
   factory YesNoQuestion.fromJson(Map<String, dynamic> json) => YesNoQuestion(
     text: json['text'],
     answer: json['answer'],
+    explanation: json['explanation'],
   );
 }
 

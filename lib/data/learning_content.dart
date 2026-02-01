@@ -1,6 +1,6 @@
 import '../models/learning_node.dart';
 
-/// All learning content data based on app_content.md
+/// All learning content data based on updated_content.md
 /// Linear learning path: 9 nodes total
 class LearningContent {
   static const List<LearningNode> nodes = [
@@ -16,30 +16,39 @@ class LearningContent {
 Function models real-life problems by representing relationships between variables as equations.
 
 **Key Points:**
-• Input → independent variable (usually x)
-• Output → dependent variable (usually y or f(x))
+• **Input:** independent variable (usually x)
+• **Output:** dependent variable (usually y or f(x))
+• **Remember:** Each input must have exactly ONE output for it to be a function!
 
-**Remember:** Each input must have exactly ONE output for it to be a function!''',
+**Example:**
+If a number of hours worked affects salary, then salary depends on hours worked.
+
+**Analysis:** Since the salary depends on hours worked, we assume that **x (independent variable) = hours worked**, and **y (dependent variable) = salary**.''',
       yesNoQuestions: [
         YesNoQuestion(
-          text: 'Each student is assigned one unique student number. Is this a function?',
+          text: 'Each student is assigned one unique student number.',
           answer: true,
+          explanation: 'Each input (student) has exactly one output (student number).',
         ),
         YesNoQuestion(
-          text: 'A person can have more than one email address. Is this a function?',
+          text: 'A person can have more than one email address.',
           answer: false,
+          explanation: 'This means the input (person) does not just have one output (email).',
         ),
         YesNoQuestion(
-          text: 'Each day of the week has one assigned opening time for a store. Is this a function?',
+          text: 'Each day of the week has one assigned opening time for a store.',
           answer: true,
+          explanation: 'Each input (day) has exactly one output (opening time).',
         ),
         YesNoQuestion(
-          text: 'A phone number can belong to different people. Is this a function?',
+          text: 'A phone number can belong to different people.',
           answer: false,
+          explanation: 'This means the phone number (input) can give different outputs (people).',
         ),
         YesNoQuestion(
-          text: 'The number of hours worked determines exactly one salary amount. Is this a function?',
+          text: 'The number of hours worked determines exactly one salary amount.',
           answer: true,
+          explanation: 'Each input (hours) has exactly one output (salary).',
         ),
       ],
     ),
@@ -51,20 +60,23 @@ Function models real-life problems by representing relationships between variabl
       title: 'Piecewise Functions',
       subtitle: 'Multiple rules, one function',
       type: NodeType.lessonOnly,
-      lessonContent: '''A piecewise function is a function defined by more than one equation, where each equation applies to a specific interval or condition.
+      lessonContent: '''**Multiple rules, one function.**
+
+A piecewise function is a function defined by more than one equation, where each equation applies to a specific interval or condition.
 
 **Think of it like:** A recipe with different instructions for different ingredients!
 
-**Steps to Solve Piecewise Problems:**
-1. Define your variables
-2. Identify distinct scenarios (intervals)
-3. Write a separate equation for each scenario
-4. Combine into a single function f(x)
+**Steps in Solving a Piecewise Function:**
+1. Define variables.
+2. Identify the distinct scenarios (intervals).
+3. Write an equation for each scenario.
+4. Substitute the given values into a piecewise function.
+5. Solve.
 
 **Real-Life Examples:**
-• Taxi fares that change after certain distances
-• Delivery fees based on distance
-• Phone plans with different rates''',
+• Taxi fares that change after certain distances.
+• Delivery fees based on distance.
+• Phone plans with different rates.''',
     ),
 
     // NODE 3: Example 1 - Grab Cab
@@ -75,48 +87,60 @@ Function models real-life problems by representing relationships between variabl
       subtitle: 'Step-by-step problem solving',
       type: NodeType.example,
       lessonContent: '''**Problem:**
-Minimum fare is ₱80.00 for the first 4 km. If distance exceeds 4 km, base fare is ₱40.00 plus ₱10.00 per km.''',
+The minimum fare for a regular grab cab is Php 80.00 for the first 4 km. If the distance exceeds 4 km, the base fare is Php 40.00 plus Php 10.00 for every kilometer. Construct a function that would represent the fare of the passenger given the distance travelled.''',
       steps: [
-        'Scenario 1 (0 < x ≤ 4):\nFare is fixed at ₱80\nf(x) = 80',
-        'Scenario 2 (x > 4):\nBase fare ₱40 + ₱10 per km\nf(x) = 40 + 10x',
-        'Final Piecewise Function:\nf(x) = { 80 if 0 < x ≤ 4\n       { 40 + 10x if x > 4',
+        '''**Step 1: Define Variables**
+• Let x = distance traveled (Input)
+• Let f(x) = fare of the passenger (Output)''',
+        '''**Step 2: Identify Scenarios**
+• Scenario 1: If 0 < x ≤ 4, Fare is fixed at Php 80.00.
+• Scenario 2: If x > 4, Base fare is Php 40 plus Php 10 for every km.''',
+        '''**Step 3: Write Equations**
+• Scenario 1: f(x) = 80
+• Scenario 2: f(x) = 40 + 10x''',
+        '''**Step 4: Final Piecewise Function**
+f(x) = { 80 if 0 < x ≤ 4
+       { 40 + 10x if x > 4''',
       ],
-      example: 'For 7 km: Since 7 > 4, use f(x) = 40 + 10(7) = 40 + 70 = ₱110',
+      example: '''For 7 km:
+Since 7 > 4, use f(x) = 40 + 10x
+f(7) = 40 + 10(7) = 40 + 70 = Php 110''',
       questions: [
         GameQuestion(
-          text: 'What does x represent in this problem?',
+          text: 'What does x represent based on the first example?',
           options: ['Passenger fare', 'Distance traveled', 'Base fare'],
           correctIndex: 1,
           explanation: 'x represents the distance traveled in kilometers.',
         ),
         GameQuestion(
-          text: 'Which function applies when 0 < x ≤ 4?',
-          options: ['40 + 10x', '10x', '80'],
+          text: 'Which function correctly represents the fare for distances 0 < x ≤ 4?',
+          options: ['f(x) = 40 + 10x', 'f(x) = 10x', 'f(x) = 80'],
           correctIndex: 2,
-          explanation: 'For the first 4 km or less, the fare is fixed at ₱80.',
+          explanation: 'For the first 4 km or less, the fare is fixed at Php 80.',
         ),
         GameQuestion(
-          text: 'What is the fare for 2 km?',
-          options: ['₱40', '₱60', '₱80'],
+          text: 'If a passenger travels 2 km, how much is the fare?',
+          options: ['Php 40', 'Php 60', 'Php 80'],
           correctIndex: 2,
-          explanation: 'Since 2 ≤ 4, the fare is the minimum ₱80.',
+          explanation: 'Since 2 km ≤ 4 km, the fare is the fixed Php 80.',
         ),
         GameQuestion(
-          text: 'Which formula applies when x > 4?',
-          options: ['80', '10x', '40 + 10x'],
+          text: 'Which formula should be used if the distance traveled is more than 4 km?',
+          options: ['f(x) = 80', 'f(x) = 10x', 'f(x) = 40 + 10x'],
           correctIndex: 2,
-          explanation: 'For distances beyond 4 km, use 40 + 10x.',
+          explanation: 'For distances beyond 4 km, use f(x) = 40 + 10x.',
         ),
         GameQuestion(
-          text: 'What is the fare for 7 km?',
-          options: ['₱80', '₱110', '₱140'],
+          text: 'What is the fare if the passenger travels 7 km?',
+          options: ['Php 80', 'Php 110', 'Php 140'],
           correctIndex: 1,
-          explanation: 'f(7) = 40 + 10(7) = 40 + 70 = ₱110',
+          explanation: 'Solution: 40 + 10(7) = 40 + 70 = Php 110',
         ),
       ],
     ),
 
     // NODE 4: Example 2 - Delivery Service
+    // NOTE: Values updated from 3km to 5km per revision
     LearningNode(
       id: 'node_4',
       order: 4,
@@ -124,52 +148,64 @@ Minimum fare is ₱80.00 for the first 4 km. If distance exceeds 4 km, base fare
       subtitle: 'Another real-world problem',
       type: NodeType.example,
       lessonContent: '''**Problem:**
-Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 times the square of distance.''',
+A delivery service charges a flat fee of Php 50.00 for deliveries within 5 kilometers. If the distance exceeds 5 kilometers, the delivery fee is Php 20.00 plus Php 5.00 times the square of the distance traveled. Construct a function that represents the delivery fee based on distance.''',
       steps: [
-        'Scenario 1 (0 < x ≤ 3):\nFlat fee applies\nf(x) = 50',
-        'Scenario 2 (x > 3):\nBase ₱20 + ₱5 times x²\nf(x) = 20 + 5x²',
-        'Final Piecewise Function:\nf(x) = { 50 if 0 < x ≤ 3\n       { 20 + 5x² if x > 3',
+        '''**Step 1: Define Variables**
+• Let x = distance traveled
+• Let f(x) = delivery fee''',
+        '''**Step 2: Identify Scenarios**
+• Scenario 1: If 0 < x ≤ 5, Fee is fixed at Php 50.00.
+• Scenario 2: If x > 5, Base Php 20 + Php 5 multiplied by x².''',
+        '''**Step 3: Write Equations**
+• Scenario 1: f(x) = 50
+• Scenario 2: f(x) = 20 + 5x²''',
+        '''**Step 4: Final Piecewise Function**
+f(x) = { 50 if 0 < x ≤ 5
+       { 20 + 5x² if x > 5''',
       ],
-      example: 'For 4 km: Since 4 > 3, use f(x) = 20 + 5(4)² = 20 + 5(16) = 20 + 80 = ₱100',
+      example: '''For 7 km:
+Since 7 > 5, use f(x) = 20 + 5x²
+f(7) = 20 + 5(49) = 20 + 245 = Php 265''',
       questions: [
         GameQuestion(
-          text: 'What does x represent?',
-          options: ['Fee', 'Distance', 'Number of deliveries'],
+          text: 'What does x represent in this problem?',
+          options: ['Delivery fee', 'Distance traveled', 'Number of deliveries'],
           correctIndex: 1,
-          explanation: 'x represents the distance in kilometers.',
+          explanation: 'x represents the distance traveled in kilometers.',
         ),
         GameQuestion(
-          text: 'What is the fee for 2 km?',
-          options: ['₱20', '₱50', '₱70'],
+          text: 'What is the delivery fee if the distance is 2 km?',
+          options: ['Php 20', 'Php 50', 'Php 70'],
           correctIndex: 1,
-          explanation: 'Since 2 ≤ 3, the flat fee of ₱50 applies.',
+          explanation: 'Within 5km range, the flat fee of Php 50 applies.',
         ),
         GameQuestion(
-          text: 'Which formula applies when x > 3?',
+          text: 'Which formula applies when x > 5?',
           options: ['50', '20 + 5x', '20 + 5x²'],
           correctIndex: 2,
-          explanation: 'For distances beyond 3 km, use 20 + 5x².',
+          explanation: 'For distances beyond 5 km, use 20 + 5x².',
         ),
         GameQuestion(
-          text: 'What is the fee for exactly 3 km?',
-          options: ['₱20', '₱35', '₱50'],
-          correctIndex: 2,
-          explanation: 'Since 3 ≤ 3, the flat fee of ₱50 still applies.',
+          text: 'If the distance is 7 km, what is the delivery fee?',
+          options: ['Php 245', 'Php 265', 'Php 300'],
+          correctIndex: 1,
+          explanation: 'Solution: 20 + 5(49) = 20 + 245 = Php 265',
         ),
         GameQuestion(
           text: 'Which is the correct piecewise function?',
           options: [
             '50 + 5x²',
-            '{50 if x≤3; 20+5x² if x>3}',
-            '{5x² if x≤3; 50 if x>3}'
+            '{50 if x≤5; 20+5x² if x>5}',
+            '{5x² if x≤5; 50 if x>5}'
           ],
           correctIndex: 1,
-          explanation: 'The function has two pieces: flat ₱50 for short distances, and 20+5x² for longer ones.',
+          explanation: 'The function has two pieces: flat Php 50 for distances within 5km, and 20+5x² for longer distances.',
         ),
       ],
     ),
 
     // NODE 5: GAME 1 - Identifying the Interval
+    // Requirement: 4/5 Stars to Unlock Next Node
     LearningNode(
       id: 'node_5',
       order: 5,
@@ -179,31 +215,31 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
       requiredStars: 4,
       questions: [
         GameQuestion(
-          text: 'Parking: ₱30 first hour, ₱20 after. Parked 0.5 hour. Which interval?',
+          text: 'Parking Php 30 (1st hr), Php 20 after. Parked 0.5 hr. Interval?',
           options: ['0 < x ≤ 1', 'x > 1'],
           correctIndex: 0,
           explanation: '0.5 hour is within the first hour, so 0 < x ≤ 1 applies.',
         ),
         GameQuestion(
-          text: 'Bus: ₱25 first 2km, ₱10 after. Traveled 1 km. Which interval?',
+          text: 'Bus Php 25 (first 2km), Php 10 after. Traveled 1 km. Interval?',
           options: ['0 < x ≤ 2', 'x > 2'],
           correctIndex: 0,
           explanation: '1 km is within the first 2 km.',
         ),
         GameQuestion(
-          text: 'Snack: ₱20 first item, ₱15 next two, ₱10 after. Bought 3 items. Category for 3rd item?',
+          text: 'Snack Php 20 (1st item), Php 15 (next 2), Php 10 after. Bought 3 items. Category for 3rd item?',
           options: ['First item', 'Next two items'],
           correctIndex: 1,
           explanation: 'The 3rd item falls within "next two items" (items 2 and 3).',
         ),
         GameQuestion(
-          text: 'Taxi: ₱60 first 5km, ₱15 after. Traveled 6 km. Which interval?',
+          text: 'Taxi Php 60 (first 5km), Php 15 after. Traveled 6 km. Interval?',
           options: ['0 < x ≤ 5', 'x > 5'],
           correctIndex: 1,
           explanation: '6 km exceeds 5 km, so x > 5 applies.',
         ),
         GameQuestion(
-          text: 'Parking: Free 1st hour, ₱50 for 2-3 hours, ₱80 above 3 hours. Parked 3.5 hours. Which interval?',
+          text: 'Parking Free (1st hr), Php 50 (2-3 hrs), Php 80 (>3 hrs). Parked 3.5 hrs. Interval?',
           options: ['2-3 hours', 'More than 3 hours'],
           correctIndex: 1,
           explanation: '3.5 hours exceeds 3 hours, so the "more than 3 hours" rate applies.',
@@ -212,6 +248,7 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
     ),
 
     // NODE 6: GAME 2 - Choose the Formula
+    // Requirement: 4/5 Stars to Unlock Next Node
     LearningNode(
       id: 'node_6',
       order: 6,
@@ -221,31 +258,31 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
       requiredStars: 4,
       questions: [
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Traveled 5km. Which formula?',
+          text: 'Taxi Php 50 (first 3km), Php 15 after. Traveled 5km. Which formula?',
           options: ['50', '50 + 15(x-3)', '15x'],
           correctIndex: 1,
-          explanation: 'For x > 3: Base ₱50 plus ₱15 for each km after 3.',
+          explanation: 'For x > 3: Base Php 50 plus Php 15 for each km after 3.',
         ),
         GameQuestion(
-          text: 'Parking: ₱30 first hour, ₱20 after. Parked 0.5 hour. Which formula?',
+          text: 'Parking Php 30 (1st hr), Php 20 after. Parked 0.5 hr. Which formula?',
           options: ['30', '30 + 20(x-1)', '20x'],
           correctIndex: 0,
-          explanation: 'Within first hour, flat rate of ₱30 applies.',
+          explanation: 'Within first hour, flat rate of Php 30 applies.',
         ),
         GameQuestion(
-          text: 'Delivery: ₱40 first 3km, ₱15 after. Traveled 5km. Which formula?',
+          text: 'Delivery Php 40 (first 3km), Php 15 after. Traveled 5km. Which formula?',
           options: ['40', '15x', '40 + 15(x-3)'],
           correctIndex: 2,
-          explanation: 'For x > 3: Base ₱40 plus ₱15 for each km after 3.',
+          explanation: 'For x > 3: Base Php 40 plus Php 15 for each km after 3.',
         ),
         GameQuestion(
-          text: 'Snack: ₱20 first item, ₱12 each additional. Bought 4 items. Which formula?',
+          text: 'Snack Php 20 (1st item), Php 12 additional. Bought 4 items. Which formula?',
           options: ['20', '12x', '20 + 12(x-1)'],
           correctIndex: 2,
-          explanation: 'First item ₱20, then ₱12 for each additional (x-1) items.',
+          explanation: 'First item Php 20, then Php 12 for each additional (x-1) items.',
         ),
         GameQuestion(
-          text: 'Subscription: ₱200 first 5 months, ₱180 after. Over 10 months gets 10% discount. For 12 months?',
+          text: 'Subscription 200 (first 5 mos), 180 after. >10 mos gets 10% discount. 12 months total. Which formula?',
           options: ['200 + 180(x-5)', '(200 + 180(x-5)) × 0.9', '200 + 180x'],
           correctIndex: 1,
           explanation: 'Calculate base cost, then apply 10% discount for >10 months.',
@@ -254,6 +291,7 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
     ),
 
     // NODE 7: GAME 3 - Compute the Output
+    // Requirement: 4/5 Stars to Unlock Next Node
     LearningNode(
       id: 'node_7',
       order: 7,
@@ -263,39 +301,41 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
       requiredStars: 4,
       questions: [
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Traveled 4km. Total fare?',
-          options: ['₱50', '₱65', '₱70'],
+          text: 'Taxi 50 (first 3km), 15 after. Traveled 4km. Total fare?',
+          options: ['50', '65', '70'],
           correctIndex: 1,
-          explanation: '50 + 15(4-3) = 50 + 15(1) = 50 + 15 = ₱65',
+          explanation: '50 + 15(4-3) = 50 + 15(1) = 50 + 15 = 65',
         ),
         GameQuestion(
-          text: 'Bus: ₱25 first 2km, ₱10 after. Traveled 5km. Total fare?',
-          options: ['₱45', '₱55', '₱50'],
+          text: 'Bus 25 (first 2km), 10 after. Traveled 5km. Total fare?',
+          options: ['45', '55', '50'],
           correctIndex: 1,
-          explanation: '25 + 10(5-2) = 25 + 10(3) = 25 + 30 = ₱55',
+          explanation: '25 + 10(5-2) = 25 + 10(3) = 25 + 30 = 55',
         ),
         GameQuestion(
-          text: 'Delivery: ₱40 first 3km, ₱15 after, +₱5 service fee. Traveled 5km. Total?',
-          options: ['₱70', '₱75', '₱80'],
+          text: 'Delivery 40 (first 3km), 15 after, +5 service fee. Traveled 5km. Total?',
+          options: ['70', '75', '80'],
           correctIndex: 1,
-          explanation: '40 + 15(5-3) + 5 = 40 + 30 + 5 = ₱75',
+          explanation: '40 + 15(5-3) + 5 = 40 + 30 + 5 = 75',
         ),
         GameQuestion(
-          text: 'Subscription: ₱200 (5 mos), ₱180 after. >10 mos gets 10% off. Total for 12 months?',
-          options: ['₱2034', '₱1980', '₱2220'],
+          text: 'Subscription 200 (5 mos), 180 after. >10 mos 10% discount. Total for 12 mos?',
+          options: ['2034', '1980', '2220'],
           correctIndex: 0,
-          explanation: '(200×5 + 180×7) × 0.9 = (1000 + 1260) × 0.9 = 2260 × 0.9 = ₱2034',
+          explanation: '(200×5 + 180×7) × 0.9 = (1000 + 1260) × 0.9 = 2260 × 0.9 = 2034',
         ),
         GameQuestion(
-          text: 'Electricity: Free 100kWh, ₱10/kWh next 50, ₱15/kWh above 150. Used 180 kWh. Total?',
-          options: ['₱750', '₱950', '₱1050'],
+          text: 'Electricity Free 100kWh, 10/kWh next 50, 15/kWh above 150. Used 180 kWh. Total?',
+          options: ['750', '950', '1050'],
           correctIndex: 1,
-          explanation: '0 + 10×50 + 15×30 = 0 + 500 + 450 = ₱950',
+          explanation: '0 + 10×50 + 15×30 = 0 + 500 + 450 = 950',
         ),
       ],
     ),
 
     // NODE 8: GAME 4 - Match Inputs to Outputs
+    // Requirement: 4/5 Stars to Unlock Next Node
+    // Scenario: Taxi charges Php 50 for first 3 km, Php 15 per km after.
     LearningNode(
       id: 'node_8',
       order: 8,
@@ -303,48 +343,50 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
       subtitle: 'Input → Output ⭐',
       type: NodeType.starGame,
       requiredStars: 4,
-      matchingContext: 'Taxi charges ₱50 for first 3 km, ₱15 per km after.',
+      matchingContext: 'Taxi charges Php 50 for first 3 km, Php 15 per km after.',
       matchingItems: [
-        MatchingItem(input: '2 km', output: '₱50'),
-        MatchingItem(input: '3 km', output: '₱50'),
-        MatchingItem(input: '4 km', output: '₱65'),
-        MatchingItem(input: '6 km', output: '₱95'),
+        MatchingItem(input: '2 km', output: 'Php 50'),
+        MatchingItem(input: '3 km', output: 'Php 50'),
+        MatchingItem(input: '4 km', output: 'Php 65'),
+        MatchingItem(input: '6 km', output: 'Php 95'),
       ],
       questions: [
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Input: 2 km → Output?',
-          options: ['₱50', '₱65', '₱80'],
+          text: 'Taxi: Php 50 first 3km, Php 15 after. Input: 2 km → Output?',
+          options: ['Php 50', 'Php 65', 'Php 80'],
           correctIndex: 0,
-          explanation: '2 km ≤ 3 km, so flat rate ₱50 applies.',
+          explanation: '2 km ≤ 3 km, so flat rate Php 50 applies.',
         ),
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Input: 3 km → Output?',
-          options: ['₱45', '₱50', '₱65'],
+          text: 'Taxi: Php 50 first 3km, Php 15 after. Input: 3 km → Output?',
+          options: ['Php 45', 'Php 50', 'Php 65'],
           correctIndex: 1,
-          explanation: '3 km = 3 km boundary, flat rate ₱50 still applies.',
+          explanation: '3 km = 3 km boundary, flat rate Php 50 still applies.',
         ),
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Input: 4 km → Output?',
-          options: ['₱50', '₱65', '₱80'],
+          text: 'Taxi: Php 50 first 3km, Php 15 after. Input: 4 km → Output?',
+          options: ['Php 50', 'Php 65', 'Php 80'],
           correctIndex: 1,
-          explanation: '50 + 15(4-3) = 50 + 15 = ₱65',
+          explanation: '50 + 15(4-3) = 50 + 15 = Php 65',
         ),
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Input: 6 km → Output?',
-          options: ['₱80', '₱95', '₱110'],
+          text: 'Taxi: Php 50 first 3km, Php 15 after. Input: 6 km → Output?',
+          options: ['Php 80', 'Php 95', 'Php 110'],
           correctIndex: 1,
-          explanation: '50 + 15(6-3) = 50 + 45 = ₱95',
+          explanation: '50 + 15(6-3) = 50 + 45 = Php 95',
         ),
         GameQuestion(
-          text: 'Taxi: ₱50 first 3km, ₱15 after. Input: 10 km → Output?',
-          options: ['₱140', '₱155', '₱200'],
+          text: 'Taxi: Php 50 first 3km, Php 15 after. Input: 10 km → Output?',
+          options: ['Php 140', 'Php 155', 'Php 200'],
           correctIndex: 1,
-          explanation: '50 + 15(10-3) = 50 + 105 = ₱155',
+          explanation: '50 + 15(10-3) = 50 + 105 = Php 155',
         ),
       ],
     ),
 
-    // NODE 9: FINAL BOSS
+    // NODE 9: FINAL BOSS (General Knowledge)
+    // Theme: Red/Dark. No Hints.
+    // Ratio: 60% Easy, 30% Average, 10% Difficult
     LearningNode(
       id: 'node_9',
       order: 9,
@@ -353,75 +395,108 @@ Flat fee ₱50.00 within 3 km. If exceeds 3 km, fee is ₱20.00 plus ₱5.00 tim
       type: NodeType.finalBoss,
       passingScore: 70,
       questions: [
+        // EASY Questions (60% = 6 questions)
         GameQuestion(
-          text: 'Which scenario is BEST represented by a piecewise function?',
+          text: 'What is a piecewise function?',
           options: [
-            'Distance traveled at constant speed',
-            'Salary depending on hours worked',
-            'Area of a circle'
+            'A function with no graph',
+            'A function with only one rule',
+            'A function with only linear equation',
+            'A function defined by different rules for different intervals'
           ],
-          correctIndex: 1,
+          correctIndex: 3,
         ),
         GameQuestion(
-          text: 'Parking: ₱20 first hour, ₱10 after. Why is this a piecewise function?',
+          text: 'Which symbol is commonly used to show the conditions in a piecewise function?',
           options: [
-            'Fee is always the same',
-            'Rule changes after 1st hour',
-            'Cannot be graphed'
-          ],
-          correctIndex: 1,
-        ),
-        GameQuestion(
-          text: 'What does the graph of a piecewise function look like?',
-          options: [
-            'A straight line',
-            'A single curve',
-            'Several lines/curves with different rules'
+            'Absolute value | |',
+            'Bracket []',
+            'Curly braces {}',
+            'Parentheses ()'
           ],
           correctIndex: 2,
         ),
         GameQuestion(
-          text: 'Fare: ₱13 first 4km, ₱2 after. Which interval uses a DIFFERENT rule?',
-          options: ['0-4 km', 'More than 4 km', 'Exactly 4 km'],
-          correctIndex: 1,
-        ),
-        GameQuestion(
-          text: 'In a piecewise function, each rule applies to a specific ___?',
-          options: ['Value', 'Graph', 'Interval'],
-          correctIndex: 2,
-        ),
-        GameQuestion(
-          text: 'Which is a real-life example of a piecewise function?',
+          text: 'In a piecewise function, what determines which rule to use?',
           options: [
-            'Simple interest calculation',
-            'Income tax brackets',
-            'Area of a square'
+            'The slope',
+            'The y-intercept',
+            'The output value',
+            'The given condition or interval of x'
           ],
-          correctIndex: 1,
+          correctIndex: 3,
         ),
         GameQuestion(
-          text: 'A cellphone plan changes rate after 5GB. What makes the function change?',
-          options: ['Exactly 5GB', 'More than 5GB', 'Less than 5GB'],
-          correctIndex: 1,
-        ),
-        GameQuestion(
-          text: 'Delivery: ₱40 for ≤3km, different rate for >3km. For 5km, which rule?',
-          options: ['₱40 flat rate', 'Base + rate × 5', 'Base + rate × (5-3)'],
-          correctIndex: 2,
-        ),
-        GameQuestion(
-          text: 'Why is income tax a piecewise function?',
+          text: 'What does the condition 0 < x ≤ 10 mean?',
           options: [
-            'Fixed rate for everyone',
-            'No income limits',
-            'Different rates for different ranges'
+            'x is less than 10',
+            'x is equal to 0 and 10',
+            'x is greater than 10 only',
+            'x is greater than 0 but is less than or equal to 10'
+          ],
+          correctIndex: 3,
+        ),
+        GameQuestion(
+          text: 'Which of the following conditions includes the number 3?',
+          options: [
+            'x < 3',
+            'x > 3',
+            'x ≤ 3',
+            'x ≠ 3'
           ],
           correctIndex: 2,
         ),
         GameQuestion(
-          text: 'Taxi: ₱40 first 2km, ₱12 per km after. Fare for 6km?',
-          options: ['₱72', '₱88', '₱96'],
+          text: 'Piecewise functions are commonly used to model situations that have:',
+          options: [
+            'no rules',
+            'changing rules',
+            'only one formula',
+            'imaginary numbers'
+          ],
           correctIndex: 1,
+        ),
+        // AVERAGE Questions (30% = 3 questions)
+        GameQuestion(
+          text: 'A school implements a grading policy where students who score below 80 follow one computation rule, while those who score 80 and above follow a different computation rule. Which computation rule applies to a student who scored 85?',
+          options: [
+            'The rule for scores equal to 80 only',
+            'The rule for scores 80 and above',
+            'The rule for scores below 80',
+            'No computation rule applies'
+          ],
+          correctIndex: 1,
+        ),
+        GameQuestion(
+          text: 'A printing shop charges 5 per page for the first 20 pages. Any page beyond 20 costs 3 per page. How much will a customer pay for 30 pages?',
+          options: [
+            'P110',
+            'P120',
+            'P130',
+            'P150'
+          ],
+          correctIndex: 2,
+        ),
+        GameQuestion(
+          text: 'A taxi charges a base fare of P50 for the first 2 kilometers. After that, an additional P15 is charged per kilometer. How much is the fare for a 5-kilometer ride?',
+          options: [
+            'P95',
+            'P110',
+            'P125',
+            'P140'
+          ],
+          correctIndex: 0,
+        ),
+        // DIFFICULT Question (10% = 1 question)
+        GameQuestion(
+          text: 'A delivery service uses one pricing rule for distances less than 10 km and another rule for distances greater than or equal to 10 km. How would you BEST represent and explain this situation mathematically?',
+          options: [
+            'By using a single linear equation',
+            'By creating a table of values only',
+            'By defining a piecewise function with distance intervals',
+            'By using a constant function'
+          ],
+          correctIndex: 2,
         ),
       ],
     ),
