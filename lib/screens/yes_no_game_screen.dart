@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/learning_node.dart';
 import '../data/learning_database.dart';
+import '../widgets/math_renderer.dart';
+import '../utils/sound_manager.dart';
 
 class YesNoGameScreen extends StatefulWidget {
   final LearningNode node;
@@ -24,9 +26,21 @@ class _YesNoGameScreenState extends State<YesNoGameScreen> {
     if (_answered != null) return;
 
     final correct = questions[_currentIndex].answer;
+    final isCorrect = answer == correct;
+
+    // Play click sound first
+    SoundManager.instance.playClick();
+
+    // Then play result sound
+    if (isCorrect) {
+      SoundManager.instance.playCorrect();
+    } else {
+      SoundManager.instance.playWrong();
+    }
+
     setState(() {
       _answered = answer;
-      if (answer == correct) {
+      if (isCorrect) {
         _score++;
       }
     });
@@ -49,6 +63,11 @@ class _YesNoGameScreenState extends State<YesNoGameScreen> {
 
     // Need all correct to pass
     final passed = _score == questions.length;
+
+    // Play level complete sound if passed
+    if (passed) {
+      SoundManager.instance.playLevelComplete();
+    }
 
     if (passed) {
       await LearningDatabase.instance.completeNode(
@@ -167,14 +186,10 @@ class _YesNoGameScreenState extends State<YesNoGameScreen> {
                       color: AppTheme.muted,
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      question.text,
+                    MathRenderer(
+                      text: question.text,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        height: 1.4,
-                      ),
+                      fontSize: 18,
                     ),
 
                     // Feedback

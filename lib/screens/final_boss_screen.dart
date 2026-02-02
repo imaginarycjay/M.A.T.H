@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/learning_node.dart';
 import '../data/learning_database.dart';
+import '../widgets/math_renderer.dart';
+import '../utils/sound_manager.dart';
 
 class FinalBossScreen extends StatefulWidget {
   final LearningNode node;
@@ -255,14 +257,10 @@ class _FinalBossScreenState extends State<FinalBossScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: const Color(0xFF404040)),
             ),
-            child: Text(
-              question.text,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-                height: 1.4,
-              ),
+            child: MathRenderer(
+              text: question.text,
+              fontSize: 18,
+              textColor: Colors.white,
             ),
           ),
           const SizedBox(height: 24),
@@ -332,6 +330,7 @@ class _FinalBossScreenState extends State<FinalBossScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: _answered ? null : () {
+          SoundManager.instance.playClick();
           setState(() => _selectedAnswer = index);
         },
         borderRadius: BorderRadius.circular(12),
@@ -369,12 +368,10 @@ class _FinalBossScreenState extends State<FinalBossScreen> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  question.options[index],
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
+                child: MathRenderer(
+                  text: question.options[index],
+                  fontSize: 15,
+                  textColor: Colors.white,
                 ),
               ),
               if (_answered && isCorrect)
@@ -389,9 +386,18 @@ class _FinalBossScreenState extends State<FinalBossScreen> {
   }
 
   void _submitAnswer() {
+    final isCorrect = _selectedAnswer == questions[_currentIndex].correctIndex;
+
+    // Play appropriate sound
+    if (isCorrect) {
+      SoundManager.instance.playCorrect();
+    } else {
+      SoundManager.instance.playWrong();
+    }
+
     setState(() {
       _answered = true;
-      if (_selectedAnswer == questions[_currentIndex].correctIndex) {
+      if (isCorrect) {
         _score++;
       }
     });
@@ -414,6 +420,11 @@ class _FinalBossScreenState extends State<FinalBossScreen> {
 
     final percentage = (_score / questions.length) * 100;
     final passed = percentage >= widget.node.passingScore;
+
+    // Play level complete sound if passed
+    if (passed) {
+      SoundManager.instance.playLevelComplete();
+    }
 
     if (passed) {
       await LearningDatabase.instance.completeNode(

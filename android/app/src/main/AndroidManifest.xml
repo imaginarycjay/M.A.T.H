@@ -4,7 +4,7 @@
     tools:ignore="MissingVersion">
 
     <application
-        android:label="M.A.T.H"
+        android:label="MATH"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,AllowBackup,MissingApplicationIcon">

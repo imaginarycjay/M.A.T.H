@@ -9,7 +9,7 @@ class LearnMathApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'M.A.T.H',
+      title: 'MATH',
       theme: AppTheme.theme,
       home: const LearningPathScreen(),
     );

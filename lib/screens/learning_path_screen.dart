@@ -80,7 +80,7 @@ class _LearningPathScreenState extends State<LearningPathScreen> {
           children: [
             Icon(Icons.school_outlined, size: 20),
             SizedBox(width: 8),
-            Text('M.A.T.H'),
+            Text('MATH'),
           ],
         ),
         actions: [

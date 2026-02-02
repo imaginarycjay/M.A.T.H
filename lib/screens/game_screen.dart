@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/learning_node.dart';
 import '../data/learning_database.dart';
+import '../widgets/math_renderer.dart';
+import '../utils/sound_manager.dart';
 
 class GameScreen extends StatefulWidget {
   final LearningNode node;
@@ -81,14 +83,10 @@ class _GameScreenState extends State<GameScreen> {
                   size: 32,
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  question.text,
+                MathRenderer(
+                  text: question.text,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    height: 1.4,
-                  ),
+                  fontSize: 16,
                 ),
               ],
             ),
@@ -241,6 +239,7 @@ class _GameScreenState extends State<GameScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: _answered ? null : () {
+          SoundManager.instance.playClick();
           setState(() => _selectedAnswer = index);
         },
         borderRadius: BorderRadius.circular(12),
@@ -284,12 +283,10 @@ class _GameScreenState extends State<GameScreen> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  question.options[index],
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: textColor,
-                  ),
+                child: MathRenderer(
+                  text: question.options[index],
+                  fontSize: 15,
+                  textColor: textColor,
                 ),
               ),
               if (_answered && isCorrect)
@@ -304,9 +301,18 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _submitAnswer() {
+    final isCorrect = _selectedAnswer == questions[_currentIndex].correctIndex;
+
+    // Play appropriate sound
+    if (isCorrect) {
+      SoundManager.instance.playCorrect();
+    } else {
+      SoundManager.instance.playWrong();
+    }
+
     setState(() {
       _answered = true;
-      if (_selectedAnswer == questions[_currentIndex].correctIndex) {
+      if (isCorrect) {
         _score++;
       }
     });
@@ -328,6 +334,11 @@ class _GameScreenState extends State<GameScreen> {
     setState(() => _showResult = true);
 
     final passed = _score >= widget.node.requiredStars;
+
+    // Play appropriate sound
+    if (passed) {
+      SoundManager.instance.playLevelComplete();
+    }
 
     if (passed) {
       await LearningDatabase.instance.completeNode(

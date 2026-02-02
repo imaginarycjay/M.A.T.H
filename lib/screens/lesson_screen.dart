@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/learning_node.dart';
 import '../data/learning_database.dart';
+import '../widgets/math_renderer.dart';
+import '../utils/sound_manager.dart';
 import 'yes_no_game_screen.dart';
 
 class LessonScreen extends StatefulWidget {
@@ -180,65 +182,11 @@ class _LessonScreenState extends State<LessonScreen> {
   }
 
   Widget _buildRichText(String text, {bool isActive = true}) {
-    List<TextSpan> spans = [];
-    RegExp boldRegex = RegExp(r'\*\*(.*?)\*\*');
-    int lastEnd = 0;
-
-    final baseColor = isActive ? AppTheme.text : AppTheme.muted;
-
-    for (Match match in boldRegex.allMatches(text)) {
-      // Add text before bold part
-      if (match.start > lastEnd) {
-        spans.add(TextSpan(
-          text: text.substring(lastEnd, match.start),
-          style: TextStyle(
-            fontSize: 14,
-            height: 1.6,
-            color: baseColor,
-          ),
-        ));
-      }
-
-      // Add bold text
-      spans.add(TextSpan(
-        text: match.group(1),
-        style: TextStyle(
-          fontSize: 14,
-          height: 1.6,
-          fontWeight: FontWeight.bold,
-          color: baseColor,
-        ),
-      ));
-
-      lastEnd = match.end;
-    }
-
-    // Add remaining text
-    if (lastEnd < text.length) {
-      spans.add(TextSpan(
-        text: text.substring(lastEnd),
-        style: TextStyle(
-          fontSize: 14,
-          height: 1.6,
-          color: baseColor,
-        ),
-      ));
-    }
-
-    // If no bold formatting found, return simple text
-    if (spans.isEmpty) {
-      return Text(
-        text,
-        style: TextStyle(
-          fontSize: 14,
-          height: 1.6,
-          color: baseColor,
-        ),
-      );
-    }
-
-    return RichText(
-      text: TextSpan(children: spans),
+    // Use MathRenderer so LaTeX ($...$ / $$...$$) renders correctly while keeping bold parsing
+    return MathRenderer(
+      text: text,
+      isActive: isActive,
+      textAlign: TextAlign.start,
     );
   }
 
@@ -301,7 +249,10 @@ class _LessonScreenState extends State<LessonScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _buildRichText(step, isActive: isActive),
+                      child: MathRenderer(
+                        text: step,
+                        isActive: isActive,
+                      ),
                     ),
                   ],
                 ),
@@ -472,13 +423,9 @@ class _LessonScreenState extends State<LessonScreen> {
           const SizedBox(height: 24),
 
           // Question
-          Text(
-            question.text,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              height: 1.4,
-            ),
+          MathRenderer(
+            text: question.text,
+            fontSize: 18,
           ),
           const SizedBox(height: 24),
 
@@ -508,6 +455,7 @@ class _LessonScreenState extends State<LessonScreen> {
               padding: const EdgeInsets.only(bottom: 12),
               child: InkWell(
                 onTap: _answered ? null : () {
+                  SoundManager.instance.playClick();
                   setState(() => _selectedAnswer = index);
                 },
                 borderRadius: BorderRadius.circular(12),
@@ -540,9 +488,9 @@ class _LessonScreenState extends State<LessonScreen> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: Text(
-                          option,
-                          style: const TextStyle(fontSize: 15),
+                        child: MathRenderer(
+                          text: option,
+                          fontSize: 15,
                         ),
                       ),
                       if (_answered && isCorrect)
@@ -653,6 +601,7 @@ class _LessonScreenState extends State<LessonScreen> {
   }
 
   void _showCompletionDialog() {
+    SoundManager.instance.playLevelComplete();
     showDialog(
       context: context,
       barrierDismissible: false,
